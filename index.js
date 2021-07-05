@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { program } = require("commander");
 const express = require("express");
+const { getLineasTMB } = require("./datos/datosAPI");
+
 const app = express();
 program.option("-p,--puerto <puerto>", "Puerto API");
 program.parse(process.argv);
@@ -14,4 +16,8 @@ server.on("error", (error) => {
     error.message = `El puerto ${puerto} está en uso.`;
   }
   console.log(`No se ha podido levantar el servidor: \n${error.message}`);
+});
+app.get("/metro/lineas", async (req, res, next) => {
+  const { features } = await getLineasTMB();
+  res.json(features);
 });
