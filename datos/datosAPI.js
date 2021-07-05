@@ -7,6 +7,14 @@ const getLineasTMB = async () => {
   const datos = resp.json();
   return datos;
 };
+const getParadasLineaTMB = async (linea) => {
+  const resp = await fetch(
+    `${process.env.URL_API}${linea}/estacions?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`
+  );
+  const datos = resp.json();
+  return datos;
+};
 module.exports = {
   getLineasTMB,
+  getParadasLineaTMB,
 };
